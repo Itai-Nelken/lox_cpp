@@ -29,6 +29,11 @@ void Array<T>::append(T data) {
     this->data[current++] = data;
 }
 
+template <class T>
+int Array<T>::get_current() {
+    return static_cast<int>(current);
+}
+
 // TODO: check if index < capacity
 template <class T>
 T Array<T>::get(int index) {

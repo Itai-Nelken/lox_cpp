@@ -1,1 +1,0 @@
-- [ ] fix undefined reference to Array<double>::get_current()
