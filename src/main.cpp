@@ -1,9 +1,10 @@
-#include "chunk.h"
-
 #include <iostream>
+
+#include "array.h"
+
 int main(void) {
-    Chunk::chunk chunk;
-    chunk.write(Chunk::OpCode::RETURN);
-    chunk.disassemble("test chunk");
+    Array<int> a;
+    a.append(12);
+    std::cout << a.get(0) << std::endl;
     return 0;
 }
