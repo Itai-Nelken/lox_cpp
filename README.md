@@ -5,5 +5,5 @@
 # TODO
 
 - [ ] more than 256 constants per chunk (`OP_CONSTANT_LONG` maybe?).
-- [ ] string interpolation.
+- [ ] string interpolation (`$"{var}"` or `"${var}"` or `f"{var}"`).
 
