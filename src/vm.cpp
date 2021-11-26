@@ -3,6 +3,7 @@
 #include "chunk.h"
 #include "value.h"
 #include "debug.h"
+#include "compiler.h"
 #include "vm.h"
 
 VM::VM() {
@@ -27,10 +28,9 @@ Value VM::pop() {
     return *sp;
 }
 
-InterpretResult VM::interpret(Chunk *chunk) {
-    this->chunk = chunk;
-    pc = this->chunk->getDataPtr();
-    return run();
+InterpretResult VM::interpret(const char *source) {
+    compile(source);
+    return InterpretResult::OK;
 }
 
 InterpretResult VM::run() {

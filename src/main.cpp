@@ -1,30 +1,71 @@
-#include "chunk.h"
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include "memory.h"
 #include "vm.h"
 
-int main(void) {
-    Chunk chunk;
+static void repl() {
+    // TODO: proper repl.
+    // linenoise maybe?
     VM vm;
+    char line[1024] {};
+    for(;;) {
+        printf(">>> ");
+        if(!fgets(line, sizeof(line), stdin)) {
+            printf("\n");
+            break;
+        }
+        vm.interpret(line);
+    }
+}
 
-    int constantIndex = chunk.addConstant(1.2);
-    chunk.write(OpCodes::CONSTANT, 123);
-    chunk.write(constantIndex, 123);
+static char *readFile(const char *path) {
+#define ERROR(...) \
+    do { \
+        fprintf(stderr, __VA_ARGS__); \
+        return nullptr; \
+    } while(false)
 
-    constantIndex = chunk.addConstant(1.4);
-    chunk.write(OpCodes::CONSTANT, 123);
-    chunk.write(constantIndex, 123);
+    FILE *f = fopen(path, "rb");
+    if(f == NULL) ERROR("ERROR: failed to open file \"%s\"!\n", path);
+    size_t size = 0;
+    char *buffer = nullptr;
 
-    chunk.write(OpCodes::ADD, 123);
+    fseek(f, 0l, SEEK_END);
+    size = ftell(f);
+    rewind(f);
 
-    constantIndex = chunk.addConstant(5.6);
-    chunk.write(OpCodes::CONSTANT, 123);
-    chunk.write(constantIndex, 123);
+    buffer = memory::alloc<char>(size + 1);
+    if(buffer == NULL) ERROR("ERROR: insufficient memory to read file \"%s\"!", path);
+    size_t bytesRead = fread(buffer, sizeof(char), size, f);
+    if(bytesRead < size) ERROR("ERROR: failed to read file \"%s\"!\n", path);
+    buffer[bytesRead] = '\0';
 
-    chunk.write(OpCodes::DIVIDE, 123);
-    chunk.write(OpCodes::NEGATE, 123);
+    fclose(f);
+    return buffer;
 
-    chunk.write(OpCodes::RETURN, 123);
+#undef ERROR
+}
 
-    //chunk.disassemble("test chunk");
-    vm.interpret(&chunk);
+static InterpretResult runFile(const char *path) {
+    VM vm;
+    char *source = readFile(path);
+    if(source == nullptr) return InterpretResult::OTHER_ERROR;
+    InterpretResult result = vm.interpret(source);
+    free(source);
+
+    return result;
+}
+
+int main(int argc, const char **argv) {
+    if(argc == 1) {
+        repl();
+    } else if(argc == 2) {
+        runFile(argv[1]);
+    } else {
+        fprintf(stderr, "USAGE: %s [path]\n", argv[0]);
+        return 1;
+    }
+
     return 0;
 }

@@ -7,7 +7,8 @@
 enum class InterpretResult {
     OK,
     COMPILE_ERROR,
-    RUNTIME_ERROR
+    RUNTIME_ERROR,
+    OTHER_ERROR
 };
 
 class VM {
@@ -24,5 +25,5 @@ private:
 public:
     VM();
     ~VM();
-    InterpretResult interpret(Chunk *chunk);
+    InterpretResult interpret(const char *source);
 };
