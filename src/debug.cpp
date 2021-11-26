@@ -19,6 +19,11 @@ static int constantInstruction(const char *name, Chunk *chunk, int offset) {
 
 int disassembleInstruction(Chunk *chunk, int offset) {
     printf("%04d ", offset);
+    if(offset > 0 && chunk->getLine(offset) == chunk->getLine(offset - 1)) {
+        printf("  | ");
+    } else {
+        printf("%4d ", chunk->getLine(offset));
+    }
 
     OpCode instruction = chunk->get(offset);
     switch(instruction) {
