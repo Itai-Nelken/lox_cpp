@@ -1,4 +1,5 @@
 #include <cstdio>
+#include "value.h"
 #include "chunk.h"
 #include "debug.h"
 
@@ -7,11 +8,22 @@ static int simpleInstruction(const char *name, int offset) {
     return offset + 1;
 }
 
+static int constantInstruction(const char *name, Chunk *chunk, int offset) {
+    uint8_t constantIndex = chunk->get(offset + 1);
+    printf("%-16s %4d '", name, constantIndex);
+    printValue(chunk->getConstant(constantIndex));
+    printf("'\n");
+
+    return offset + 2;
+}
+
 int disassembleInstruction(Chunk *chunk, int offset) {
     printf("%04d ", offset);
 
     OpCode instruction = chunk->get(offset);
     switch(instruction) {
+        case OpCodes::CONSTANT:
+            return constantInstruction("CONSTANT", chunk, offset);
         case OpCodes::RETURN:
             return simpleInstruction("RETURN", offset);
         default:
