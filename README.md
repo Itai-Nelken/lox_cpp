@@ -1,6 +1,6 @@
 # Lox++
 Lox++ is a compiler and bytecode VM for the toy language Lox (described in the great book [Crafting interpreters](https://craftinginterpreters.com/).
-Lox++ is an implementation of Clox as descibed in the book but written in C++ using only the C standard library.
+Lox++ is an implementation of Clox as described in the book but written in C++ using only the C standard library.
 C++ features used are:
 - classes
 - enum classes
