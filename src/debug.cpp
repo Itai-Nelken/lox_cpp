@@ -25,10 +25,20 @@ int disassembleInstruction(Chunk *chunk, int offset) {
         printf("%4d ", chunk->getLine(offset));
     }
 
-    OpCode instruction = chunk->get(offset);
+    uint8_t instruction = chunk->get(offset);
     switch(instruction) {
         case OpCodes::CONSTANT:
             return constantInstruction("CONSTANT", chunk, offset);
+        case OpCodes::ADD:
+            return simpleInstruction("ADD", offset);
+        case OpCodes::SUBTRRACT:
+            return simpleInstruction("SUBTRACT", offset);
+        case OpCodes::MULTIPLY:
+            return simpleInstruction("MULTIPLY", offset);
+        case OpCodes::DIVIDE:
+            return simpleInstruction("DIVIDE", offset);
+        case OpCodes::NEGATE:
+            return simpleInstruction("NEGATE", offset);
         case OpCodes::RETURN:
             return simpleInstruction("RETURN", offset);
         default:

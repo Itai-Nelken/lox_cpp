@@ -28,3 +28,7 @@ Value Chunk::getConstant(int index) {
 int Chunk::getLine(int index) {
     return lines[index];
 }
+
+uint8_t *Chunk::getDataPtr() {
+	return data;
+}

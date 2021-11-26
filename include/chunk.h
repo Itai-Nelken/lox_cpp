@@ -7,6 +7,11 @@
 namespace OpCodes {
     enum {
         CONSTANT,
+        ADD,
+        SUBTRRACT,
+        MULTIPLY,
+        DIVIDE,
+        NEGATE,
         RETURN
     };
 } // namespace OpCodes
@@ -17,6 +22,7 @@ private:
     ValueArray constants;
     Array<int> lines;
 public:
+    uint8_t *getDataPtr();
     void write(uint8_t byte, int line);
     void disassemble(const char *name);
     int addConstant(Value value);

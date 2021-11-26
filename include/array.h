@@ -4,10 +4,9 @@
 
 template <class T>
 class Array {
-private:
+protected:
     T *data = nullptr;
     bool has_allocated = false;
-protected:
     size_t capacity = 0, current = 0;
 public:
     ~Array();
