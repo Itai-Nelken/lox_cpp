@@ -14,6 +14,9 @@ Lox++ is currently at chapter 18: Types of Values
 - `nil` or `null`.
 - `fun` or `fn`.
 
+## Optimizations
+- Use same constants: when adding a constant if it already exists in the chunk's constant pool, use th exisiting one. this saves memory and makes the 255 constants per chunk limit less annoying.
+
 # TODO
 - [ ] more than 256 constants per chunk (`OP_CONSTANT_LONG` or `OP_CONSTANT_16` (2 byte operand)).
 - [ ] string interpolation (one of: `$"{var}"`, `"${var}"`, `f"{var}"`).
