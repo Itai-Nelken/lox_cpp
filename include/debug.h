@@ -2,4 +2,4 @@
 
 #include "chunk.h"
 
-int disassembleInstruction(Chunk *chunk, int offset);
+int disassembleInstruction(Chunk &chunk, int offset);

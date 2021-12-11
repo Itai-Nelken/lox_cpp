@@ -52,7 +52,7 @@ InterpretResult VM::run() {
             printf("] ");
         }
         printf("\n");
-        disassembleInstruction(this->chunk, (int)(pc - chunk->getDataPtr()));
+        disassembleInstruction(*(this->chunk), (int)(pc - chunk->getDataPtr()));
 #endif
         uint8_t instruction;
         switch(instruction = READ_BYTE()) {
