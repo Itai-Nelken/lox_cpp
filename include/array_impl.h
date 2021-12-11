@@ -41,6 +41,26 @@ T Array<T>::get(int index) {
 }
 
 template <class T>
+bool Array<T>::exists(T value) {
+    for(int i = 0; i < (int)current; i++) {
+        if(data[i] == value) {
+            return true;
+        }
+    }
+    return false;
+}
+
+template <class T>
+int Array<T>::indexOf(T value) {
+    if(!exists(value)) return -1;
+    for(int i = 0; i < (int)current; i++) {
+        if(data[i] == value) {
+            return i;
+        }
+    }
+}
+
+template <class T>
 T Array<T>::operator[](int index) {
     return get(index);
 }

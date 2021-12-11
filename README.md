@@ -17,3 +17,4 @@ Lox++ is currently at chapter 17: Parsing expressions of the book.
 # TODO
 - [ ] more than 256 constants per chunk (`OP_CONSTANT_LONG` or `OP_CONSTANT_16` (2 byte operand)).
 - [ ] string interpolation (one of: `$"{var}"`, `"${var}"`, `f"{var}"`).
+- [x] optimization: if constant is already in constant pool, use it instead of adding a new one.

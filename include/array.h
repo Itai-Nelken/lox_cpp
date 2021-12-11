@@ -13,6 +13,11 @@ public:
     void reinitialize();
     void append(T data);
     T get(int index);
+    // check if a value exists in the array
+    bool exists(T value);
+    // return the index of a value
+    // return -1 if value doesn't exist
+    int indexOf(T value);
     int get_current();
 
     T operator[](int index);
