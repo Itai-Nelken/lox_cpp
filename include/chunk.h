@@ -8,7 +8,7 @@ namespace OpCodes {
     enum {
         CONSTANT,
         ADD,
-        SUBTRRACT,
+        SUBTRACT,
         MULTIPLY,
         DIVIDE,
         NEGATE,

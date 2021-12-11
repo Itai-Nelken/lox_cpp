@@ -31,7 +31,7 @@ int disassembleInstruction(Chunk &chunk, int offset) {
             return constantInstruction("CONSTANT", chunk, offset);
         case OpCodes::ADD:
             return simpleInstruction("ADD", offset);
-        case OpCodes::SUBTRRACT:
+        case OpCodes::SUBTRACT:
             return simpleInstruction("SUBTRACT", offset);
         case OpCodes::MULTIPLY:
             return simpleInstruction("MULTIPLY", offset);

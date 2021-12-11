@@ -29,8 +29,17 @@ Value VM::pop() {
 }
 
 InterpretResult VM::interpret(const char *source) {
-    compile(source);
-    return InterpretResult::OK;
+    Chunk chunk;
+
+    if(!compile(source, chunk)) {
+        return InterpretResult::COMPILE_ERROR;
+    }
+    this->chunk = &chunk;
+    pc = this->chunk->getDataPtr();
+
+    InterpretResult result = run();
+
+    return result;
 }
 
 InterpretResult VM::run() {
@@ -62,7 +71,7 @@ InterpretResult VM::run() {
                 break;
             }
             case OpCodes::ADD: BINARY_OP(+); break;
-            case OpCodes::SUBTRRACT: BINARY_OP(-); break;
+            case OpCodes::SUBTRACT: BINARY_OP(-); break;
             case OpCodes::MULTIPLY: BINARY_OP(*); break;
             case OpCodes::DIVIDE: BINARY_OP(/); break;
             case OpCodes::NEGATE: push(-pop()); break;
