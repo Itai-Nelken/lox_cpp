@@ -8,13 +8,11 @@
 #include "debug.h"
 #endif
 
-struct parser {
+struct Parser {
     Token current, previous;
     Scanner *scanner;
     bool hadError, panicMode;
 };
-// c++ ...
-typedef struct parser Parser;
 
 namespace Precedences {
     // precedence levels from lowest to highest.
@@ -176,48 +174,49 @@ static void unary() {
     }
 }
 
-// casts because c++ ...
+// C++ doesn't allow the C99 designated initializers
+// so I added them as a comment just so it's clear what I mean.
 ParseRule rules[] = {
-    [(int)TokenType::LEFT_PAREN] = {grouping, NULL, Precedences::NONE},
-    [(int)TokenType::RIGHT_PAREN] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::LEFT_BRACE] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::RIGHT_BRACE] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::COMMA] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::DOT] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::MINUS] = {unary, binary, Precedences::TERM},
-    [(int)TokenType::PLUS] = {NULL, binary, Precedences::TERM},
-    [(int)TokenType::SEMICOLON] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::SLASH] = {NULL, binary, Precedences::FACTOR},
-    [(int)TokenType::STAR] = {NULL, binary, Precedences::FACTOR},
-    [(int)TokenType::BANG] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::BANG_EQUAL] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::EQUAL] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::EQUAL_EQUAL] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::GREATER] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::GREATER_EQUAL] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::LESS] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::LESS_EQUAL] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::IDENTIFIER] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::STRING] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::NUMBER] = {number, NULL, Precedences::NONE},
-    [(int)TokenType::AND] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::CLASS] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::ELSE] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::FALSE] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::FOR] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::FUN] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::IF] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::NIL] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::OR] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::PRINT] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::RETURN] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::SUPER] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::THIS] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::TRUE] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::VAR] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::WHILE] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::ERROR] = {NULL, NULL, Precedences::NONE},
-    [(int)TokenType::T_EOF] = {NULL, NULL, Precedences::NONE}
+    /*[TokenType::LEFT_PAREN]    = */{grouping, NULL, Precedences::NONE},
+    /*[TokenType::RIGHT_PAREN]   = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::LEFT_BRACE]    = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::RIGHT_BRACE]   = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::COMMA]         = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::DOT]           = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::MINUS]         = */{unary, binary, Precedences::TERM},
+    /*[TokenType::PLUS]          = */{NULL, binary, Precedences::TERM},
+    /*[TokenType::SEMICOLON]     = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::SLASH]         = */{NULL, binary, Precedences::FACTOR},
+    /*[TokenType::STAR]          = */{NULL, binary, Precedences::FACTOR},
+    /*[TokenType::BANG]          = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::BANG_EQUAL]    = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::EQUAL]         = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::EQUAL_EQUAL]   = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::GREATER]       = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::GREATER_EQUAL] = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::LESS]          = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::LESS_EQUAL]    = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::IDENTIFIER]    = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::STRING]        = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::NUMBER]        = */{number, NULL, Precedences::NONE},
+    /*[TokenType::AND]           = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::CLASS]         = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::ELSE]          = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::FALSE]         = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::FOR]           = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::FUN]           = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::IF]            = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::NIL]           = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::OR]            = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::PRINT]         = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::RETURN]        = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::SUPER]         = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::THIS]          = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::TRUE]          = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::VAR]           = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::WHILE]         = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::ERROR]         = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::T_EOF]         = */{NULL, NULL, Precedences::NONE}
 };
 
 static void parsePrecedence(Precedence precedence) {
@@ -276,3 +275,4 @@ bool compile(const char *source, Chunk &chunk) {
  *     if(token.type == TokenType::T_EOF) break;
  * }
  */
+
