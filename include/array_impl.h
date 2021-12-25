@@ -58,7 +58,6 @@ int Array<T>::indexOf(T value) {
             return i;
         }
     }
-    return -1;
 }
 
 template <class T>

@@ -50,7 +50,7 @@ InterpretResult VM::run() {
         double b = pop(); \
         double a = pop(); \
         push(a op b); \
-    } while(0)
+    } while(false)
 
     for(;;) {
 #ifdef DEBUG_TRACE_EXECUTION
