@@ -7,10 +7,10 @@ namespace memory {
     T *reallocate(T *ptr, size_t oldSize, size_t newSize) {
         (void)oldSize; // unused
         if(newSize == 0) {
-            free(ptr);
+            ::free(ptr);
             return nullptr;
         }
-        T *result = static_cast<T*>(realloc(ptr, newSize));
+        T *result = static_cast<T*>(::realloc(ptr, newSize));
         if(result == NULL) exit(1);
         return result;
     }
@@ -19,6 +19,16 @@ namespace memory {
     T *alloc(size_t size) {
         return static_cast<T*>(malloc(size));
     }
+
+    template<typename T>
+    T *realloc(T *ptr, size_t size) {
+        return static_cast<T*>(::realloc(ptr, size));
+    }
+
+    inline void free(void *ptr) {
+        ::free(ptr);
+    }
+
 } // namespace memory
 
 #define GROW_CAPACITY(capacity) ((capacity) < 8 ? 8 : (capacity) * 2)

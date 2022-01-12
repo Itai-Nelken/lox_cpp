@@ -1,7 +1,10 @@
 #include <cstdio>
+#include <cstring> // strlen()
+#include <cstdarg>
 #include "common.h"
 #include "scanner.h"
 #include "chunk.h"
+#include "string_builder.h"
 #include "compiler.h"
 
 #ifdef DEBUG_PRINT_CODE
@@ -41,7 +44,7 @@ typedef struct parse_rule {
 } ParseRule;
 
 Parser p;
-Chunk *compilingChunk;
+static Chunk *compilingChunk;
 
 static Chunk *currentChunk() {
     return compilingChunk;
@@ -68,8 +71,37 @@ static void errorAtCurrent(const char *message) {
     errorAt(p.current, message);
 }
 
-static void error(const char *message) {
-    errorAt(p.previous, message);
+// TODO: support more than 1 character arguments
+// and calculate the full size of format + ... (see printf(3) man page for example)
+static void error(const char *format...) {
+    StringBuilder message(strlen(format) + 2);
+    va_list args;
+    va_start(args, format);
+    while(*format != '\0') {
+        if(*format == '%') {
+            ++format;
+            switch(*format) {
+                case 'd':
+                case 'i':
+                    message << va_arg(args, int)+'0';
+                    break;
+                case 'c':
+                    message << static_cast<char>(va_arg(args, int));
+                    break;
+                case '%':
+                    message << '%';
+                    break;
+                default:
+                    message << '%' << *format;
+                    break;
+            }
+        } else {
+            message << *format;
+        }
+        ++format;
+    }
+    va_end(args);
+    errorAt(p.previous, message.string());
 }
 
 static void advance() {
