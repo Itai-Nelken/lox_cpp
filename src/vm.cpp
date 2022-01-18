@@ -52,6 +52,10 @@ InterpretResult VM::run() {
         push(a op b); \
     } while(0)
 
+#ifdef DEBUG_TRACE_EXECUTION
+    printf("== executing ==\n");
+#endif
+
     for(;;) {
 #ifdef DEBUG_TRACE_EXECUTION
         printf("    ");

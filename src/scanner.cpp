@@ -202,3 +202,4 @@ Token Scanner::scanToken() {
 
     return errorToken("Unexpected character!");
 }
+
