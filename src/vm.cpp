@@ -35,7 +35,8 @@ InterpretResult VM::interpret(const char *source) {
         return InterpretResult::COMPILE_ERROR;
     }
     this->chunk = &chunk;
-    pc = this->chunk->getDataPtr();
+    //pc = this->chunk->getDataPtr();
+    pc = this->chunk->data;
 
     InterpretResult result = run();
 
@@ -65,7 +66,7 @@ InterpretResult VM::run() {
             printf("] ");
         }
         printf("\n");
-        disassembleInstruction(*(this->chunk), (int)(pc - chunk->getDataPtr()));
+        disassembleInstruction(*(this->chunk), (int)(pc - chunk->data));
 #endif
         uint8_t instruction;
         switch(instruction = READ_BYTE()) {

@@ -17,9 +17,7 @@ void Chunk::disassemble(const char *name) {
 }
 
 int Chunk::addConstant(Value value) {
-    // if constant is already in constant pool, why add it again?
-    // instead we return it's index.
-    // if the constant doesn't exist, we simply add it and return the new index.
+    // if the constant already exists, reuse it.
     if(!constants.exists(value)) {
         constants.append(value);
         return constants.get_current() - 1;
@@ -35,6 +33,6 @@ int Chunk::getLine(int index) {
     return lines[index];
 }
 
-uint8_t *Chunk::getDataPtr() {
-	return data;
-}
+//uint8_t *Chunk::getDataPtr() {
+//	return data;
+//}

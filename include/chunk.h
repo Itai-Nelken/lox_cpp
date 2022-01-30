@@ -18,11 +18,12 @@ namespace OpCodes {
 typedef uint8_t OpCode;
 
 class Chunk : public Array<uint8_t> {
+    friend class VM;
 private:
     ValueArray constants;
     Array<int> lines;
 public:
-    uint8_t *getDataPtr();
+    //uint8_t *getDataPtr();
     void write(uint8_t byte, int line);
     void disassemble(const char *name);
     int addConstant(Value value);

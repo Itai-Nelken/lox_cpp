@@ -52,7 +52,9 @@ bool Array<T>::exists(T value) {
 
 template <class T>
 int Array<T>::indexOf(T value) {
-    if(!exists(value)) return -1;
+    if(!exists(value)) {
+        return -1;
+    }
     for(int i = 0; i < (int)current; i++) {
         if(data[i] == value) {
             return i;
