@@ -71,7 +71,7 @@ static void errorAtCurrent(const char *message) {
     errorAt(p.current, message);
 }
 
-// TODO: support more than 1 character arguments
+// TODO: support more than 1 digit numbers
 // and calculate the full size of format + ... (see printf(3) man page for example)
 static void error(const char *format...) {
     StringBuilder message(strlen(format) + 2);
@@ -87,6 +87,9 @@ static void error(const char *format...) {
                     break;
                 case 'c':
                     message << static_cast<char>(va_arg(args, int));
+                    break;
+                case 's':
+                    message << va_arg(args, char *);
                     break;
                 case '%':
                     message << '%';

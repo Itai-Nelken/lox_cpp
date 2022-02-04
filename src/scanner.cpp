@@ -115,6 +115,7 @@ Token Scanner::number() {
 }
 
 TokenType Scanner::checkNil() {
+    // nil OR null
     if(checkKeyword(1, "il", TokenType::NIL) == TokenType::NIL || checkKeyword(1, "ull", TokenType::NIL) == TokenType::NIL) {
         return TokenType::NIL;
     }
@@ -139,6 +140,7 @@ TokenType Scanner::identifierType() {
                 switch(start[1]) {
                     case 'a': return checkKeyword(2, "lse", TokenType::FALSE);
                     case 'o': return checkKeyword(2, "r", TokenType::FOR);
+                    // fun OR fn
                     case 'u': return checkKeyword(2, "n", TokenType::FUN);
                     case 'n': return TokenType::FUN;
                 }
