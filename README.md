@@ -5,7 +5,7 @@ The only C++ features used are:
 - classes
 - enum classes
 - custom namespaces
-- generics (templates)
+- templates (generics)
 - references
 
 Lox++ is currently at chapter 18: Types of Values
