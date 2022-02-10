@@ -46,9 +46,11 @@ void StringBuilder::copyTo(char *dest, size_t size) {
     }
 
     char *r = buffer;
-    for(size_t i = 0; i < size && (size_t)(r - buffer) < current; ++i) {
+    size_t i;
+    for(i = 0; i < size && (size_t)(r - buffer) < current; ++i) {
         dest[i] = *r++;
     }
+    dest[i] = '\0';
 }
 
 char *StringBuilder::string() {

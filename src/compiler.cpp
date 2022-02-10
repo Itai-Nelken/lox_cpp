@@ -106,6 +106,7 @@ static void error(const char *format...) {
         ++format;
     }
     va_end(args);
+    message << '\0';
     errorAt(p.previous, message.string());
 }
 
