@@ -50,7 +50,8 @@ static char *readFile(const char *path) {
 static InterpretResult runFile(const char *path) {
     VM vm;
     char *source = readFile(path);
-    if(source == nullptr) return InterpretResult::OTHER_ERROR;
+    if(source == nullptr)
+	    return InterpretResult::OTHER_ERROR;
     InterpretResult result = vm.interpret(source);
     free(source);
 

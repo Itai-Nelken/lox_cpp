@@ -51,7 +51,8 @@ static Chunk *currentChunk() {
 }
 
 static void errorAt(Token &token, const char *message) {
-    if(p.panicMode) return;
+    if(p.panicMode)
+	    return;
     p.panicMode = true;
     fprintf(stderr, "[line %d] Error ", token.line);
 
@@ -71,8 +72,9 @@ static void errorAtCurrent(const char *message) {
     errorAt(p.current, message);
 }
 
-// TODO: support more than 1 digit numbers
-// and calculate the full size of format + ... (see printf(3) man page for example)
+
+// TODO: more than single digit numbers
+// calculate the full size of format + ... (see printf(3) man page for example)
 static void error(const char *format...) {
     StringBuilder message(strlen(format) + 2);
     va_list args;
@@ -83,7 +85,7 @@ static void error(const char *format...) {
             switch(*format) {
                 case 'd':
                 case 'i':
-                    message << va_arg(args, int)+'0';
+                    message << va_arg(args, int) + '0';
                     break;
                 case 'c':
                     message << static_cast<char>(va_arg(args, int));
@@ -112,7 +114,8 @@ static void advance() {
 
     for(;;) {
         p.current = p.scanner->scanToken();
-        if(p.current.type != TokenType::ERROR) break;
+        if(p.current.type != TokenType::ERROR)
+            break;
 
         errorAtCurrent(p.current.start);
     }
@@ -210,7 +213,7 @@ static void unary() {
 }
 
 // C++ doesn't allow the C99 designated initializers
-// so I added them as a comment just so it's clear what I mean.
+// so I added them as a comment just so it's clear what is meant.
 ParseRule rules[] = {
     /*[TokenType::LEFT_PAREN]    = */{grouping, NULL, Precedences::NONE},
     /*[TokenType::RIGHT_PAREN]   = */{NULL, NULL, Precedences::NONE},
