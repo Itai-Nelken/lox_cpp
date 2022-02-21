@@ -7,10 +7,14 @@
 namespace OpCodes {
     enum {
         CONSTANT,
+        NIL,
+        TRUE,
+        FALSE,
         ADD,
         SUBTRACT,
         MULTIPLY,
         DIVIDE,
+        NOT,
         NEGATE,
         RETURN
     };

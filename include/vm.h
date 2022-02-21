@@ -22,6 +22,8 @@ private:
     void resetStack();
     void push(Value valie);
     Value pop();
+    Value peek(int offset);
+    void runtimeError(const char *format, ...);
 public:
     VM();
     ~VM();

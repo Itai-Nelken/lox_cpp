@@ -188,6 +188,15 @@ static void binary() {
     }
 }
 
+static void literal() {
+    switch(p.previous.type) {
+        case TokenType::TRUE: emitByte(OpCodes::TRUE); break;
+        case TokenType::FALSE: emitByte(OpCodes::FALSE); break;
+        case TokenType::NIL: emitByte(OpCodes::NIL); break;
+        default: break; // unreachable
+    }
+}
+
 // assumes '(' (TokenType::LEFT_PAREN) has already been consumed
 static void grouping() {
     expression();
@@ -197,7 +206,7 @@ static void grouping() {
 // assumes the number token has already been consumed
 static void number() {
     double value = strtod(p.previous.start, NULL);
-    emitConstant(value);
+    emitConstant(NUMBER_VAL(value));
 }
 
 static void unary() {
@@ -208,7 +217,8 @@ static void unary() {
 
     // emit the operator instruction
     switch(operatorType) {
-        case TokenType::BANG: emitByte(OpCodes::NEGATE); break;
+        case TokenType::MINUS: emitByte(OpCodes::NEGATE); break;
+        case TokenType::BANG: emitByte(OpCodes::NOT); break;
         default: break; // unreachable
     }
 }
@@ -227,7 +237,7 @@ ParseRule rules[] = {
     /*[TokenType::SEMICOLON]     = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::SLASH]         = */{NULL, binary, Precedences::FACTOR},
     /*[TokenType::STAR]          = */{NULL, binary, Precedences::FACTOR},
-    /*[TokenType::BANG]          = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::BANG]          = */{unary, NULL, Precedences::NONE},
     /*[TokenType::BANG_EQUAL]    = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::EQUAL]         = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::EQUAL_EQUAL]   = */{NULL, NULL, Precedences::NONE},
@@ -241,17 +251,17 @@ ParseRule rules[] = {
     /*[TokenType::AND]           = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::CLASS]         = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::ELSE]          = */{NULL, NULL, Precedences::NONE},
-    /*[TokenType::FALSE]         = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::FALSE]         = */{literal, NULL, Precedences::NONE},
     /*[TokenType::FOR]           = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::FUN]           = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::IF]            = */{NULL, NULL, Precedences::NONE},
-    /*[TokenType::NIL]           = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::NIL]           = */{literal, NULL, Precedences::NONE},
     /*[TokenType::OR]            = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::PRINT]         = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::RETURN]        = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::SUPER]         = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::THIS]          = */{NULL, NULL, Precedences::NONE},
-    /*[TokenType::TRUE]          = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::TRUE]          = */{literal, NULL, Precedences::NONE},
     /*[TokenType::VAR]           = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::WHILE]         = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::ERROR]         = */{NULL, NULL, Precedences::NONE},
