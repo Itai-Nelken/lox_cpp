@@ -180,6 +180,15 @@ static void binary() {
     parsePrecedence((Precedence)(rule->precedence + 1));
 
     switch(operatorType) {
+        case TokenType::EQUAL_EQUAL: emitByte(OpCodes::EQUAL); break;
+        // !(a == b) == a != b
+        case TokenType::BANG_EQUAL: emitBytes(OpCodes::EQUAL, OpCodes::NOT); break;
+        case TokenType::GREATER: emitByte(OpCodes::GREATER); break;
+        // !(a < b) == a >= b
+        case TokenType::GREATER_EQUAL: emitBytes(OpCodes::LESS, OpCodes::NOT); break;
+        case TokenType::LESS: emitByte(OpCodes::LESS); break;
+        // !(a > b) == a <= b
+        case TokenType::LESS_EQUAL: emitBytes(OpCodes::GREATER, OpCodes::NOT); break;
         case TokenType::PLUS: emitByte(OpCodes::ADD); break;
         case TokenType::MINUS: emitByte(OpCodes::SUBTRACT); break;
         case TokenType::STAR: emitByte(OpCodes::MULTIPLY); break;
@@ -238,13 +247,13 @@ ParseRule rules[] = {
     /*[TokenType::SLASH]         = */{NULL, binary, Precedences::FACTOR},
     /*[TokenType::STAR]          = */{NULL, binary, Precedences::FACTOR},
     /*[TokenType::BANG]          = */{unary, NULL, Precedences::NONE},
-    /*[TokenType::BANG_EQUAL]    = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::BANG_EQUAL]    = */{NULL, binary, Precedences::EQUALITY},
     /*[TokenType::EQUAL]         = */{NULL, NULL, Precedences::NONE},
-    /*[TokenType::EQUAL_EQUAL]   = */{NULL, NULL, Precedences::NONE},
-    /*[TokenType::GREATER]       = */{NULL, NULL, Precedences::NONE},
-    /*[TokenType::GREATER_EQUAL] = */{NULL, NULL, Precedences::NONE},
-    /*[TokenType::LESS]          = */{NULL, NULL, Precedences::NONE},
-    /*[TokenType::LESS_EQUAL]    = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::EQUAL_EQUAL]   = */{NULL, binary, Precedences::EQUALITY},
+    /*[TokenType::GREATER]       = */{NULL, binary, Precedences::COMPARISON},
+    /*[TokenType::GREATER_EQUAL] = */{NULL, binary, Precedences::COMPARISON},
+    /*[TokenType::LESS]          = */{NULL, binary, Precedences::COMPARISON},
+    /*[TokenType::LESS_EQUAL]    = */{NULL, binary, Precedences::COMPARISON},
     /*[TokenType::IDENTIFIER]    = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::STRING]        = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::NUMBER]        = */{number, NULL, Precedences::NONE},

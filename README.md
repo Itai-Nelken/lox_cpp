@@ -8,7 +8,7 @@ The only C++ features used are:
 - templates (generics)
 - references
 
-Lox++ is currently at chapter 18: Types of Values
+Lox++ is currently at chapter 19: Strings
 
 ## Extra features
 - `nil` or `null`.

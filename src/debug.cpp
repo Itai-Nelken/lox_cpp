@@ -35,6 +35,12 @@ int disassembleInstruction(Chunk &chunk, int offset) {
             return simpleInstruction("FALSE", offset);
         case OpCodes::NIL:
             return simpleInstruction("NIL", offset);
+        case OpCodes::EQUAL:
+            return simpleInstruction("EQUAL", offset);
+        case OpCodes::GREATER:
+            return simpleInstruction("GREATER", offset);
+        case OpCodes::LESS:
+            return simpleInstruction("LESS", offset);
         case OpCodes::ADD:
             return simpleInstruction("ADD", offset);
         case OpCodes::SUBTRACT:

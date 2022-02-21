@@ -18,6 +18,20 @@ bool Value::operator==(Value &b) {
     return true;
 }
 
+bool valuesEqual(Value a, Value b) {
+    if(a.type != b.type) {
+        return false;
+    }
+    switch(a.type) {
+        case ValueType::BOOL: return AS_BOOL(a) == AS_BOOL(b);
+        case ValueType::NIL: return true; // nil == nil
+        case ValueType::NUMBER: return AS_NUMBER(a) == AS_NUMBER(b);
+        default: break;
+    }
+    // unreachable
+    return false;
+}
+
 void printValue(Value value) {
     switch(value.type) {
         case ValueType::BOOL:

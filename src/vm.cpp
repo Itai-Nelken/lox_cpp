@@ -107,6 +107,14 @@ InterpretResult VM::run() {
             case OpCodes::TRUE: push(BOOL_VAL(true)); break;
             case OpCodes::FALSE: push(BOOL_VAL(false)); break;
             case OpCodes::NIL: push(NIL_VAL); break;
+            case OpCodes::EQUAL: {
+                Value b = pop();
+                Value a = pop();
+                push(BOOL_VAL(valuesEqual(a, b)));
+                break;
+            }
+            case OpCodes::GREATER: BINARY_OP(BOOL_VAL, >); break;
+            case OpCodes::LESS: BINARY_OP(BOOL_VAL, <); break;
             case OpCodes::ADD: BINARY_OP(NUMBER_VAL, +); break;
             case OpCodes::SUBTRACT: BINARY_OP(NUMBER_VAL, -); break;
             case OpCodes::MULTIPLY: BINARY_OP(NUMBER_VAL, *); break;
