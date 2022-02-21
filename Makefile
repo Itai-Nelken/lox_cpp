@@ -1,5 +1,5 @@
 CXX := g++
-CXXFLAGS += -Wall -Wextra -Wpedantic -Iinclude
+CXXFLAGS += -Wall -Wextra -Wpedantic -Iinclude -std=c++2a # c++2a allows designated  initializers
 SRC = $(wildcard src/*.cpp)
 OBJ = $(SRC:.cpp=.o)
 BIN := lox++

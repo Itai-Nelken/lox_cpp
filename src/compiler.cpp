@@ -31,7 +31,7 @@ namespace Precedences {
         FACTOR, // * /
         UNARY, // ! -
         CALL, // . ()
-        PRIMARY 
+        PRIMARY
     };
 } // namespace Precedence
 typedef uint8_t Precedence;
