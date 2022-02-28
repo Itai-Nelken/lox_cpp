@@ -18,7 +18,7 @@ Lox++ is currently at chapter 19: Strings
 - Use same constants: when adding a constant if it already exists in the chunk's constant pool, use the exisiting one. this saves memory and makes the 255 constants per chunk limit slightly less annoying.
 
 # TODO
+- [ ] Merge `valuesEqual()` and `Value::operator==()` as they do the exact same thing.
 - [ ] more than 256 constants per chunk (`OP_CONSTANT_LONG` or `OP_CONSTANT_16` (2 byte operand)).
 - [ ] string interpolation (one of: `$"{var}"`, `"${var}"`, `f"{var}"`).
 - [x] optimization: if constant is already in constant pool, use it instead of adding a new one.
-
