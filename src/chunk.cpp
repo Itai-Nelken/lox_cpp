@@ -4,16 +4,21 @@
 #include "debug.h"
 #include "chunk.h"
 
-void Chunk::write(uint8_t byte) {
+void Chunk::write(uint8_t byte, int line) {
     code.push_back(byte);
+    lines.push_back(line);
 }
 
-void Chunk::write(OpCode op) {
-    write(static_cast<uint8_t>(op));
+void Chunk::write(OpCode op, int line) {
+    write(static_cast<uint8_t>(op), line);
 }
 
 uint8_t Chunk::byte_at(size_t index) {
     return code.at(index);
+}
+
+int Chunk::line_at(size_t index) {
+    return lines.at(index);
 }
 
 int Chunk::add_constant(Value value) {

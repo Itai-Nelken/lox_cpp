@@ -25,6 +25,11 @@ namespace Debug {
 
 int disassembleInstruction(Chunk &chunk, int offset) {
     printf("%04d ", offset);
+    if(offset > 0 && chunk.line_at(offset) == chunk.line_at(offset - 1)) {
+        printf("   | ");
+    } else {
+        printf("%4d ", chunk.line_at(offset));
+    }
 
     uint8_t instruction = chunk.byte_at(offset);
     switch(static_cast<OpCode>(instruction)) {
