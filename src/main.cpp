@@ -2,12 +2,13 @@
 #include <cstdlib>
 #include <cstring>
 #include "memory.h"
+#include "object.h"
 #include "vm.h"
 
 static void repl() {
     // TODO: proper repl.
     // linenoise maybe?
-    VM vm;
+    VM vm(getObjHead());
     char line[1024] {};
     for(;;) {
         printf(">>> ");
@@ -48,7 +49,7 @@ static char *readFile(const char *path) {
 }
 
 static InterpretResult runFile(const char *path) {
-    VM vm;
+    VM vm(getObjHead());
     char *source = readFile(path);
     if(source == nullptr)
 	    return InterpretResult::OTHER_ERROR;

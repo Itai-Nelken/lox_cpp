@@ -4,6 +4,7 @@
 #include "common.h"
 #include "scanner.h"
 #include "chunk.h"
+#include "object.h"
 #include "string_builder.h"
 #include "compiler.h"
 
@@ -218,6 +219,10 @@ static void number() {
     emitConstant(NUMBER_VAL(value));
 }
 
+static void string() {
+    emitConstant(OBJ_VAL(copyString(p.previous.start + 1, p.previous.length - 2)));
+}
+
 static void unary() {
     TokenType operatorType = p.previous.type;
 
@@ -232,7 +237,7 @@ static void unary() {
     }
 }
 
-// C++ doesn't allow the C99 designated initializers
+// C++ doesn't allow designated initializers
 // so I added them as a comment just so it's clear what is meant.
 ParseRule rules[] = {
     /*[TokenType::LEFT_PAREN]    = */{grouping, NULL, Precedences::NONE},
@@ -255,7 +260,7 @@ ParseRule rules[] = {
     /*[TokenType::LESS]          = */{NULL, binary, Precedences::COMPARISON},
     /*[TokenType::LESS_EQUAL]    = */{NULL, binary, Precedences::COMPARISON},
     /*[TokenType::IDENTIFIER]    = */{NULL, NULL, Precedences::NONE},
-    /*[TokenType::STRING]        = */{NULL, NULL, Precedences::NONE},
+    /*[TokenType::STRING]        = */{string, NULL, Precedences::NONE},
     /*[TokenType::NUMBER]        = */{number, NULL, Precedences::NONE},
     /*[TokenType::AND]           = */{NULL, NULL, Precedences::NONE},
     /*[TokenType::CLASS]         = */{NULL, NULL, Precedences::NONE},

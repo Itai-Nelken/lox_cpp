@@ -1,4 +1,6 @@
 #include <cstdio>
+#include <cstring>
+#include "object.h"
 #include "value.h"
 
 bool Value::operator==(Value &b) {
@@ -10,6 +12,12 @@ bool Value::operator==(Value &b) {
             return as.boolean == b.as.boolean;
         case ValueType::NUMBER:
             return as.number == b.as.number;
+            case ValueType::OBJ: {
+                auto *aString = AS_STRING(*this);
+                auto *bString = AS_STRING(b);
+                return aString->length == bString->length &&
+                       memcmp(aString->chars, bString->chars, aString->length) == 0;
+            }
         case ValueType::NIL:
             break; // handled in last return in function (to silence compiler warning)
     }
@@ -19,17 +27,7 @@ bool Value::operator==(Value &b) {
 }
 
 bool valuesEqual(Value a, Value b) {
-    if(a.type != b.type) {
-        return false;
-    }
-    switch(a.type) {
-        case ValueType::BOOL: return AS_BOOL(a) == AS_BOOL(b);
-        case ValueType::NIL: return true; // nil == nil
-        case ValueType::NUMBER: return AS_NUMBER(a) == AS_NUMBER(b);
-        default: break;
-    }
-    // unreachable
-    return false;
+   return a == b;
 }
 
 void printValue(Value value) {
@@ -42,6 +40,9 @@ void printValue(Value value) {
             break;
         case ValueType::NUMBER:
             printf("%g", AS_NUMBER(value));
+            break;
+        case ValueType::OBJ:
+            printObject(value);
             break;
     }
 }

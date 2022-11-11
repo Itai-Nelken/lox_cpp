@@ -31,6 +31,9 @@ namespace memory {
 
 } // namespace memory
 
+#define ALLOCATE(type, size) memory::reallocate<type>(nullptr, 0, sizeof(type) * (size))
+#define FREE(type, ptr) memory::reallocate<type>(ptr, sizeof(type), 0)
+
 #define GROW_CAPACITY(capacity) ((capacity) < 8 ? 8 : (capacity) * 2)
 #define GROW_ARRAY(type, ptr, oldCount, newCount) memory::reallocate<type>(ptr, sizeof(type) * (oldCount), sizeof(type) * (newCount))
 #define FREE_ARRAY(type, ptr, oldCount) memory::reallocate<type>(ptr, sizeof(type) * oldCount, 0)

@@ -197,7 +197,7 @@ Token Scanner::scanToken() {
         case '=': return makeToken(match('=') ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
         case '<': return makeToken(match('=') ? TokenType::LESS_EQUAL : TokenType::LESS);
         case '>': return makeToken(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
-        case '"':return string();
+        case '"': return string();
         default:
             break;
     }

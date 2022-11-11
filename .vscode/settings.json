@@ -1,6 +1,8 @@
 {
     "files.associations": {
+        "*.s": "arm",
         "iostream": "cpp",
-        "cstddef": "cpp"
+        "cstddef": "cpp",
+        "vector": "cpp"
     }
 }
