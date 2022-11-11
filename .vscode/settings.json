@@ -3,6 +3,10 @@
         "*.s": "arm",
         "iostream": "cpp",
         "cstddef": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "exception": "cpp",
+        "stdexcept": "cpp",
+        "string_view": "cpp",
+        "array": "cpp"
     }
 }
