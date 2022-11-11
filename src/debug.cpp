@@ -35,6 +35,16 @@ int disassembleInstruction(Chunk &chunk, int offset) {
     switch(static_cast<OpCode>(instruction)) {
         case OpCode::Constant:
             return constantInstruction("Constant", chunk, offset);
+        case OpCode::Add:
+            return simpleInstruction("Add", offset);
+        case OpCode::Subtract:
+            return simpleInstruction("Subtract", offset);
+        case OpCode::Multiply:
+            return simpleInstruction("Multiply", offset);
+        case OpCode::Divide:
+            return simpleInstruction("Divide", offset);
+        case OpCode::Negate:
+            return simpleInstruction("Negate", offset);
         case OpCode::Return:
             return simpleInstruction("Return", offset);
         default:

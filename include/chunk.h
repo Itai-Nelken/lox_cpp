@@ -7,6 +7,9 @@
 
 enum class OpCode : uint8_t {
     Constant,
+    Add, Subtract,
+    Multiply, Divide,
+    Negate,
     Return
 };
 
