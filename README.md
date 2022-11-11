@@ -8,7 +8,7 @@ The only C++ features used are:
 - templates (generics)
 - references
 
-Lox++ is currently at chapter 19: Strings
+Lox++ is currently at chapter 16: Scanning on Demand
 
 ## Extra features
 - `nil` or `null`.
@@ -20,5 +20,5 @@ Lox++ is currently at chapter 19: Strings
 # TODO
 - [ ] more than 256 constants per chunk (`OP_CONSTANT_LONG` or `OP_CONSTANT_16` (2 byte operand)).
 - [ ] string interpolation (one of: `$"{var}"`, `"${var}"`, `f"{var}"`).
-- [x] optimization: if constant is already in constant pool, use it instead of adding a new one.
+- [ ] optimization: if constant is already in constant pool, use it instead of adding a new one.
 
