@@ -1,40 +1,23 @@
 #pragma once
 
+#include <vector>
+#include <string_view>
 #include "common.h"
-#include "array.h"
-#include "value.h"
 
-namespace OpCodes {
-    enum {
-        CONSTANT,
-        NIL,
-        TRUE,
-        FALSE,
-        EQUAL,
-        GREATER,
-        LESS,
-        ADD,
-        SUBTRACT,
-        MULTIPLY,
-        DIVIDE,
-        NOT,
-        NEGATE,
-        RETURN
-    };
-} // namespace OpCodes
-typedef uint8_t OpCode;
-
-class Chunk : public Array<uint8_t> {
-    friend class VM;
-private:
-    ValueArray constants;
-    Array<int> lines;
-public:
-    //uint8_t *getDataPtr();
-    void write(uint8_t byte, int line);
-    void disassemble(const char *name);
-    int addConstant(Value value);
-    Value getConstant(int index);
-    int getLine(int index);
+enum class OpCode : uint8_t {
+    Return
 };
 
+
+class Chunk {
+public:
+    Chunk() = default;
+    ~Chunk() = default;
+
+    void write(uint8_t byte);
+    void write(OpCode op);
+    uint8_t byte_at(size_t index);
+    void disassemble(std::string_view name);
+private:
+    std::vector<uint8_t> code;
+};
